@@ -1,7 +1,6 @@
 import random
 from collections import deque
 
-
 class NodoHabilidad:
     def __init__(self, nombre, puntos):
         self.nombre = nombre
@@ -28,17 +27,19 @@ def mostrar_arbol(nodo, nivel=0):
         mostrar_arbol(nodo.izquierda, nivel + 2)
         mostrar_arbol(nodo.derecha, nivel + 2)
 
-personajes = {"Hajime Saitō","Himura Kenshin"}
+personajes = {"Naruto Uzumaki","Itachi Uchiha","Dan Kato","Sasuke Uchiha","Ashina Uzumaki","Gaara","Jiraiya","Shikamaru Nara"}
+
 def login_admin():
-    print("===LOGIN ADMINISTRADOR===")
+    print("=== LOGIN ADMINISTRADOR ===")
     while True:
-        adminUsuario=input("Usuario: ")
-        adminContra=input("Contrasena: ")
-        if adminUsuario=="ADMINARUTO" and adminContra=="NARUTO123":
+        adminUsuario = input("Usuario: ")
+        adminContra = input("Contraseña: ")
+        if adminUsuario == "ADMINARUTO" and adminContra == "NARUTO123":
             print("Acceso concedido.")
             break
-def menu_administrador() 
-          while True:
+
+def menu_administrador():
+    while True:
         print("\n--- MENÚ DE ADMINISTRADOR ---")
         print("1. Agregar nuevo personaje")
         print("2. Listar personajes")
@@ -46,13 +47,16 @@ def menu_administrador()
         print("4. Editar estilo de pelea")
         print("5. Eliminar personaje")
         print("6. Salir")
+        
         op = int(input("Opción: "))
+        
         if op == 1:
             nombreNuevo = input("Nombre del personaje: ")
             estilo = input("Estilo de pelea: ")
             habilidades = crear_arbol_habilidades()
             personajes[nombreNuevo] = {"estilo": estilo, "arbol": habilidades}
             print("Personaje agregado.")
+            
         elif op == 2:
             if personajes:
                 for p in personajes:
@@ -60,6 +64,7 @@ def menu_administrador()
                     print(f"- {p}: {personajes[p]['estilo']} ({total} pts)")
             else:
                 print("No hay personajes.")
+                
         elif op == 3:
             nombreBuscar = input("Nombre a buscar: ")
             if nombreBuscar in personajes:
@@ -67,6 +72,7 @@ def menu_administrador()
                 mostrar_arbol(personajes[nombreBuscar]["arbol"])
             else:
                 print("No encontrado.")
+                
         elif op == 4:
             estiloEditar = input("Nombre a editar: ")
             if estiloEditar in personajes:
@@ -75,19 +81,65 @@ def menu_administrador()
                 print("Estilo actualizado.")
             else:
                 print("No encontrado.")
+                
         elif op == 5:
             nombreEliminar = input("Nombre a eliminar: ")
             if nombreEliminar in personajes:
                 del personajes[nombreEliminar]
                 print("Personaje eliminado correctamente.")
             else:
-                print("No existe")
+                print("No existe.")
+                
         elif op == 6:
             break
+            
         else:
             print("Opción inválida")
-    
+def registro_usuario():
+    print("===REGISTRO DE USUARIOS===")
+    print("1. Registrarse")
+    print("2. Iniciar sesion")
+    print("3. salir")
+    opcion = input("Opcion: ")
 
+
+def menu_cliente():
+    if not personajes or len(personajes) < 2:
+        print("⚠️ Debes tener al menos 2 personajes para combatir.")
+        return
+    while True:
+        print("\n--- MENÚ CLIENTE ---")
+        print("1. Ver árbol de habilidades de un personaje")
+        print("2. Simular combate 1 vs 1")
+        print("3. Simular torneo completo")
+        print("4. Salir")
+        op = input("Opción: ")
+        if op == "1":
+            nombre = input("Nombre del personaje: ")
+            if nombre in personajes:
+                print(f"Árbol de habilidades de {nombre}:")
+                mostrar_arbol(personajes[nombre]["arbol"])
+                total = sumar_habilidades(personajes[nombre]["arbol"])
+                print(f"Total puntos: {total}")
+            else:
+                print("No encontrado.")
+        elif op == "2":
+            p1, p2 = random.sample(list(personajes.keys()), 2)
+            h1 = sumar_habilidades(personajes[p1]["arbol"])
+            h2 = sumar_habilidades(personajes[p2]["arbol"])
+            print(f"\n⚔️ {p1} ({h1} pts) vs {p2} ({h2} pts)")
+            if h1 > h2:
+                print(f"🏆 Gana {p1}")
+            elif h2 > h1:
+                print(f"🏆 Gana {p2}")
+            else:
+                print("🤝 Empate")
+        elif op == "3":
+            simular_torneo()
+        elif op == "4":
+            break
+        else:
+            print("Opción inválida.")
     # SIMULACION DE TORNEO E INICIALIZACION (JOSHUA CARLOSAMA)
     def simular_torneo():
     participantes = list(personajes.keys())
@@ -128,5 +180,4 @@ def main():
             break
         else:
             print("Opción inválida.")
-
 main()
