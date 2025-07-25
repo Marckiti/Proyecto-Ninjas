@@ -37,8 +37,8 @@ def login_admin():
         if adminUsuario=="ADMINARUTO" and adminContra=="NARUTO123":
             print("Acceso concedido.")
             break
-    menu_administrador() 
-        while True:
+def menu_administrador() 
+          while True:
         print("\n--- MENÚ DE ADMINISTRADOR ---")
         print("1. Agregar nuevo personaje")
         print("2. Listar personajes")
@@ -86,3 +86,47 @@ def login_admin():
             break
         else:
             print("Opción inválida")
+    
+
+    # SIMULACION DE TORNEO E INICIALIZACION (JOSHUA CARLOSAMA)
+    def simular_torneo():
+    participantes = list(personajes.keys())
+    ronda = 1
+    while len(participantes) > 1:
+        print(f"\n🏁 Ronda {ronda} - {len(participantes)} participantes")
+        random.shuffle(participantes)
+        nueva_ronda = []
+        while len(participantes) > 1:
+            p1 = participantes.pop()
+            p2 = participantes.pop()
+            h1 = sumar_habilidades(personajes[p1]["arbol"])
+            h2 = sumar_habilidades(personajes[p2]["arbol"])
+            ganador = p1 if h1 >= h2 else p2
+            print(f"{p1} ({h1}) vs {p2} ({h2}) → Gana {ganador}")
+            nueva_ronda.append(ganador)
+        if participantes:
+            solitario = participantes.pop()
+            print(f"{solitario} pasa automáticamente")
+            nueva_ronda.append(solitario)
+        participantes = nueva_ronda
+        ronda += 1
+    print(f"\n👑 Campeón del torneo: {participantes[0]}")
+
+def main():
+    while True:
+        print("\n=== SISTEMA DE PELEAS SAMURAI X ===")
+        print("1. Ingresar como ADMIN")
+        print("2. Ingresar como CLIENTE")
+        print("3. Salir")
+        op = input("Elige una opción: ")
+        if op == "1":
+            login_admin()
+        elif op == "2":
+            menu_cliente()
+        elif op == "3":
+            print("¡Hasta pronto Samurai!")
+            break
+        else:
+            print("Opción inválida.")
+
+main()
