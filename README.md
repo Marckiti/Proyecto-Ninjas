@@ -142,27 +142,27 @@ def menu_cliente():
             print("Opción inválida.")
     # SIMULACION DE TORNEO E INICIALIZACION (JOSHUA CARLOSAMA)
     def simular_torneo():
-    participantes = list(personajes.keys())
-    ronda = 1
-    while len(participantes) > 1:
-        print(f"\n🏁 Ronda {ronda} - {len(participantes)} participantes")
-        random.shuffle(participantes)
-        nueva_ronda = []
+        participantes = list(personajes.keys())
+        ronda = 1
         while len(participantes) > 1:
-            p1 = participantes.pop()
-            p2 = participantes.pop()
-            h1 = sumar_habilidades(personajes[p1]["arbol"])
-            h2 = sumar_habilidades(personajes[p2]["arbol"])
-            ganador = p1 if h1 >= h2 else p2
-            print(f"{p1} ({h1}) vs {p2} ({h2}) → Gana {ganador}")
-            nueva_ronda.append(ganador)
-        if participantes:
-            solitario = participantes.pop()
-            print(f"{solitario} pasa automáticamente")
-            nueva_ronda.append(solitario)
-        participantes = nueva_ronda
-        ronda += 1
-    print(f"\n👑 Campeón del torneo: {participantes[0]}")
+            print(f"\n🏁 Ronda {ronda} - {len(participantes)} participantes")
+            random.shuffle(participantes)
+            nueva_ronda = []
+            while len(participantes) > 1:
+                p1 = participantes.pop()
+                p2 = participantes.pop()
+                h1 = sumar_habilidades(personajes[p1]["arbol"])
+                h2 = sumar_habilidades(personajes[p2]["arbol"])
+                ganador = p1 if h1 >= h2 else p2
+                print(f"{p1} ({h1}) vs {p2} ({h2}) → Gana {ganador}")
+                nueva_ronda.append(ganador)
+            if participantes:
+                solitario = participantes.pop()
+                print(f"{solitario} pasa automáticamente")
+                nueva_ronda.append(solitario)
+            participantes = nueva_ronda
+            ronda += 1
+        print(f"\n👑 Campeón del torneo: {participantes[0]}")
 
 def main():
     while True:
