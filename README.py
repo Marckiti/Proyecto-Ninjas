@@ -34,7 +34,7 @@ def login_admin():
     while True:
         adminUsuario = input("Usuario: ")
         adminContra = input("Contraseña: ")
-        if adminUsuario == "ADMINARUTO" and adminContra == "NARUTO123":
+        if adminUsuario == "admin naruto" and adminContra == "123naruto@":
             print("Acceso concedido.")
             break
 
@@ -166,7 +166,7 @@ def menu_cliente():
 
 def main():
     while True:
-        print("\n=== SISTEMA DE PELEAS SAMURAI X ===")
+        print("\n=== SISTEMA DE BATALLA NARUTO===")
         print("1. Ingresar como ADMIN")
         print("2. Ingresar como CLIENTE")
         print("3. Salir")
